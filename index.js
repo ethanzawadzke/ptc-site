@@ -1,72 +1,69 @@
-//toggle #slide-one's class between .hidden and default
-const toggleSlideOne = () => {
-    const slideOne = document.querySelector('#slide-one');
-    slideOne.classList.toggle('hidden');
-}
+window.addEventListener('load', () => {
+    console.log("DOM loaded");
 
-setInterval(toggleSlideOne, 8000);
+    const dropdownHeaders = document.querySelectorAll(".service-dropdown-header-container");
 
-//hamburger-slideout-menu listener that toggles display 
-//of the slideout menu
-const hamburger = document.getElementById('hamburger');
-const slideOutMenu = document.getElementById('hamburger-slideout-menu');
-const xButton = document.getElementById('slideout-menu-x');
-const menuLine = document.getCl
+    // Add an event listener to each header
+    dropdownHeaders.forEach(header => {
+        header.addEventListener("click", () => {
+            // Find the associated dropdown body
+            const dropdownBody = header.parentNode.querySelector('.service-dropdown-body');
+            // Toggle a class on the body
+            dropdownBody.classList.toggle("open");
+        });
+    });
 
+    document.getElementById("subscribe-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const emailInput = document.getElementById("email-input-main");
+        console.log(emailInput.value);
+        console.log(emailInput);
+        const email = emailInput.value;
+        const submitButton = document.getElementById("subscribe-button");
 
-hamburger.addEventListener('click', () => {
-    slideOutMenu.classList.add('open');
-    xButton.classList.add('open');
-
-    //darken the background
-    document.querySelector('#main-container').style.opacity = '1';;
+        if (email) {
+            submitButton.classList.add("subscribe-button-loading");
+            // AJAX request to save the email address
+            const xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "/wp/wp-admin/admin-ajax.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    const response = JSON.parse(this.responseText);
+                    submitButton.classList.remove("subscribe-button-loading");
+                    if (response.success) {
+                        // Change the button color to green and disable it
+                        submitButton.style.backgroundColor = "#040268";
+                        submitButton.style.color = "white";
+                        submitButton.innerHTML = "Subscribed!";
+                        submitButton.disabled = true;
+                    } else if (response.error) {
+                        // Display the error message
+                        alert(response.error);
+                    }
+                    else {
+                        // Display the error message
+                        alert("That e-mail has already been registered.");
+                    }
+                }
+            };
+            xhttp.send(`action=save_email_subscription&email=${encodeURIComponent(email)}`);
+        }
+    });
 });
 
-xButton.addEventListener('click', () => {
-    slideOutMenu.classList.remove('open');
-    xButton.classList.remove('open');
+function setMinHeight() {
+    const textContainer = document.querySelector('.who-we-are-card');
+    const imageContainer = document.querySelector('.who-we-are-image');
 
-    document.querySelector('#main-container').style.opacity = '0';
-});
-
-let body = document.querySelector('body');
-
-body.addEventListener('click', (e) => {
-    console.log(e.target);
-    if (e.target != hamburger && e.target != slideOutMenu && e.target != xButton) {
-        slideOutMenu.classList.remove('open');
-        xButton.classList.remove('open');
-        document.querySelector('#main-container').style.opacity = '0';
+    if (textContainer && imageContainer) {
+        const textContainerHeight = textContainer.offsetHeight;
+        imageContainer.style.minHeight = `${textContainerHeight}px`;
     }
-});
-
-//for every button in the slideout menu, add an event listener onmouseover
-
-const slideOutMenuButtons = document.querySelectorAll('.side-menu-item');
-
-slideOutMenuButtons.forEach((button) => {
-    button.addEventListener('mouseover', (e) => {
-        console.log(e.target.id);
-        const idString = 'line-' + e.target.id;
-        console.log(idString);
-        const line = document.getElementById(idString);
-        line.style.width = '16px';
-        line.style['background-color'] = 'rgb(34, 103, 182)';
-    });
-    button.addEventListener('mouseout', (e) => {
-        const idString = 'line-' + e.target.id;
-        const line = document.getElementById(idString);
-        console.log(e.target);
-        line.style.width = '8px';
-        line.style['background-color'] = 'black';
-    });
-});
-
-function scrollToSection(sectionID) {
-    var section = document.getElementById(sectionID);
-    section.scrollIntoView();
 }
 
-body.onscrolld = function() {
-    scrollToSection('services-anchor');
-}
+// Call the function initially to set the min-height
+setMinHeight();
+
+// Call the function when the window is resized
+window.addEventListener('resize', setMinHeight);

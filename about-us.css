@@ -1,0 +1,202 @@
+.about-us-container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: arial;
+    max-width: 1500px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.about-us-hero {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.name {
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    font-size: 2.5rem;
+    margin-bottom: -1rem;
+}
+
+.name-bullet {
+    margin-right: .4rem;
+    height: 100%;
+    min-width: 2rem;
+    background-color: darkblue;
+}
+
+.role-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.role-name {
+    margin-left: .5rem;
+    min-width: fit-content;
+}
+
+.role-spacer {
+    width: 0;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.image-container {
+    position: relative;
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+}
+
+.portrait {
+    width: 1100px;
+    height: 500px;
+    background-image: url(https://media.licdn.com/dms/image/C5603AQHo7rd9ihjtWw/profile-displayphoto-shrink_800_800/0/1651228623088?e=2147483647&v=beta&t=01hQLZkgvCSuaHR0umQa6RLiPLrnlMBZAXZo00aqQS4);
+    background-size: cover;
+    background-position: bottom center;
+    margin-top: 1rem;
+}
+
+.bio {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 1rem;
+    border-right: 1px solid;
+    border-top: 1px solid;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    line-height: 1.75;
+}
+
+.rectangle {
+    display: flex;
+    align-self: end;
+    justify-self: start;
+    width: 100%;
+    border-top: 1px solid;
+    border-right: 1px solid;
+    padding-top: 1rem;
+    margin-right: 1rem;
+}
+
+.rectangle p {
+    margin-right: 1rem;
+}
+
+.test {
+    max-width: 1000px;
+    margin: auto;
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+.square-break-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: auto;
+    margin: auto;
+    margin-top: 4rem;
+    margin-bottom: 1rem;
+    gap: 5rem;
+}
+
+.square-break {
+    height: 2rem;
+    width: 2rem;
+    background-color: darkblue;
+}
+
+.bio-container {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid;
+    border-right: 1px solid;
+    padding-right: 1rem;
+    margin-bottom: 8rem;
+    gap: 2rem;
+}
+
+.bio-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 2;
+}
+
+.bio-text p {
+    display: flex;
+}
+
+.bio-spacer {
+    width: 3rem;
+    height: 118px;
+    background-color: var(--test-blue);
+    margin-right: 1rem;
+}
+
+.container-nogap {
+    display: flex;
+    flex-direction: column;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+    max-width: 1500px;
+    padding-left: 4%;
+    padding-right: 4%;
+    margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .name {
+        font-size: 1.5rem;
+        margin-bottom: .1rem;
+    }
+    .name-bullet {
+        height: 3rem;
+        min-width: 1rem;
+    }
+    .portrait {
+        min-width: 10rem;
+        height: 15rem;
+    }
+    .portrait-bg-square {
+        width: 10rem;
+        height: 15rem;
+    }
+    .bio {
+        margin-top: 1rem;
+    }
+    .rectangle {
+        margin-right: 1rem;
+    }
+    .square-break-container {
+        margin-top: 2rem;
+        gap: 2rem;
+    }
+    .role-container {
+        margin-left: 2.5rem;
+    }
+    .bio-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+    .portrait {
+        width: 100px;
+        height: 225px;
+    }
+}
